@@ -186,7 +186,6 @@ class MoveController extends Controller
                 ]
             ], 422);
         } catch (\Exception $e) {
-            dd($e);
             DB::rollBack();
             $code = is_numeric($e->getCode()) ? (int) $e->getCode() : 500;
 

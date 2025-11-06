@@ -26,9 +26,10 @@ class MutasiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'source_location_id' => 'required|exists:locations,id',
-            'destination_location_id' => 'required|exists:locations,id',
-            'description' => 'required|string|max:200',
+            'location_id' => 'required|exists:locations,id',
+            'date' => 'required|date',
+            'type' => 'required|in:in,out',
+            'reason' => 'required|string|max:200',
             'items' => 'required|array',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.qty' => 'required|numeric',

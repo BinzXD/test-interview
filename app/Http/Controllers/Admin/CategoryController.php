@@ -46,7 +46,6 @@ class CategoryController extends Controller
                 ]
             ], 422);
         } catch (\Exception $e) {
-            dd($e);
             $code = $e->getCode();
             $statusCode = ($code >= 100 && $code < 600) ? $code : 500;
 
@@ -90,15 +89,14 @@ class CategoryController extends Controller
                 ]
             ], 422);
         } catch (\Exception $e) {
-            $code = $e->getCode();
-            $statusCode = ($code >= 100 && $code < 600) ? $code : 500;
+            $code = is_numeric($e->getCode()) ? (int) $e->getCode() : 500;
 
             return Api::send([
                 'errors' => [
-                    'code' => $statusCode,
+                    'code' => $code,
                     'message' => $e->getMessage(),
                 ]
-            ], $statusCode);
+            ], $code);
         }
     }
 
@@ -113,15 +111,14 @@ class CategoryController extends Controller
 
             return Api::send($category, 200);
         } catch (\Exception $e) {
-            $code = $e->getCode();
-            $statusCode = ($code >= 100 && $code < 600) ? $code : 500;
+            $code = is_numeric($e->getCode()) ? (int) $e->getCode() : 500;
 
             return Api::send([
                 'errors' => [
-                    'code' => $statusCode,
+                    'code' => $code,
                     'message' => $e->getMessage(),
                 ]
-            ], $statusCode);
+            ], $code);
         }
     }
 
@@ -147,7 +144,6 @@ class CategoryController extends Controller
                 return Api::send($data, 200);
             }
         } catch (ValidationException $e) {
-            dd($e);
             $errors = new MessageBag($e->errors());
             return Api::send([
                 'errors' => [
@@ -155,17 +151,15 @@ class CategoryController extends Controller
                     'message' => $errors->first(),
                 ]
             ], 422);
-        } catch (\Exception $e) {
-            dd($e);
-            $code = $e->getCode();
-            $statusCode = ($code >= 100 && $code < 600) ? $code : 500;
+         } catch (\Exception $e) {
+            $code = is_numeric($e->getCode()) ? (int) $e->getCode() : 500;
 
             return Api::send([
                 'errors' => [
-                    'code' => $statusCode,
+                    'code' => $code,
                     'message' => $e->getMessage(),
                 ]
-            ], $statusCode);
+            ], $code);
         }
     }
 
@@ -190,15 +184,14 @@ class CategoryController extends Controller
                 ]
             ], 422);
         } catch (\Exception $e) {
-            $code = $e->getCode();
-            $statusCode = ($code >= 100 && $code < 600) ? $code : 500;
+            $code = is_numeric($e->getCode()) ? (int) $e->getCode() : 500;
 
             return Api::send([
                 'errors' => [
-                    'code' => $statusCode,
+                    'code' => $code,
                     'message' => $e->getMessage(),
                 ]
-            ], $statusCode);
+            ], $code);
         }
     }
 
@@ -214,16 +207,15 @@ class CategoryController extends Controller
             $category->delete();
 
             return Api::send(null, 200);
-        } catch (\Exception $e) {
-            $code = $e->getCode();
-            $statusCode = ($code >= 100 && $code < 600) ? $code : 500;
+         } catch (\Exception $e) {
+            $code = is_numeric($e->getCode()) ? (int) $e->getCode() : 500;
 
             return Api::send([
                 'errors' => [
-                    'code' => $statusCode,
+                    'code' => $code,
                     'message' => $e->getMessage(),
                 ]
-            ], $statusCode);
+            ], $code);
         }
     }
 }

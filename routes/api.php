@@ -43,6 +43,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function ($route) {
             $route->delete('/{id}', [CategoryController::class, 'destroy']);
         });
 
+        // Location
         $route->group(['prefix' => 'location'], function ($route) {
             $route->get('/all', [LocationController::class, 'all']);
             $route->get('/', [LocationController::class, 'index']);
@@ -64,12 +65,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function ($route) {
 
         // Mutasi
         $route->group(['prefix' => 'mutasi'], function ($route) {
-            $route->get('/all', [MutasiController::class, 'all']);
             $route->get('/', [MutasiController::class, 'index']);
             $route->post('/', [MutasiController::class, 'store']);
+            $route->get('/history-product/{id}', [MutasiController::class, 'historyProduct']);
+            $route->get('/history-user', [MutasiController::class, 'historyUser']);
             $route->get('/{id}', [MutasiController::class, 'show']);
-            $route->post('/{id}', [MutasiController::class, 'update']);
-            $route->delete('/{id}', [MutasiController::class, 'destroy']);
         });
 
         // Move

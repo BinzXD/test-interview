@@ -12,8 +12,9 @@ class Mutasi extends Model
     protected $fillable = [
         'location_id',
         'type',
-        'user_id', 
+        'user_id',
+        'date', 
         'code', 
-        'description'
+        'reason',
     ];
 }

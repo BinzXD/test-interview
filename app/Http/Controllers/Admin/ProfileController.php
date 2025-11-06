@@ -45,10 +45,14 @@ class ProfileController extends Controller
 
             return Api::send($customer, 200);
         } catch (\Exception $e) {
-            dd($e);
-            $code = $e->getCode();
-            $statusCode = ($code >= 100 && $code < 600 && !$e instanceof QueryException) ? $code : 500;
-            return Api::send(['errors' => $e], $statusCode);
+            $code = is_numeric($e->getCode()) ? (int) $e->getCode() : 500;
+
+            return Api::send([
+                'errors' => [
+                    'code' => $code,
+                    'message' => $e->getMessage(),
+                ]
+            ], $code);
         }
     }
 
@@ -79,16 +83,15 @@ class ProfileController extends Controller
                     'message' => $errors->first(),
                 ]
             ], 422);
-        } catch (\Exception $e) {
-            $code = $e->getCode();
-            $statusCode = ($code >= 100 && $code < 600) ? $code : 500;
+         } catch (\Exception $e) {
+            $code = is_numeric($e->getCode()) ? (int) $e->getCode() : 500;
 
             return Api::send([
                 'errors' => [
-                    'code' => $statusCode,
+                    'code' => $code,
                     'message' => $e->getMessage(),
                 ]
-            ], $statusCode);
+            ], $code);
         }
     }
 
@@ -122,16 +125,15 @@ class ProfileController extends Controller
                     'message' => $errors->first(),
                 ]
             ], 422);
-        } catch (\Exception $e) {
-            $code = $e->getCode();
-            $statusCode = ($code >= 100 && $code < 600) ? $code : 500;
+         } catch (\Exception $e) {
+            $code = is_numeric($e->getCode()) ? (int) $e->getCode() : 500;
 
             return Api::send([
                 'errors' => [
-                    'code' => $statusCode,
+                    'code' => $code,
                     'message' => $e->getMessage(),
                 ]
-            ], $statusCode);
+            ], $code);
         }
     }
 }
